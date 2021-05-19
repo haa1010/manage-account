@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  border: 1px solid rgb(216 177 209);
+  border-radius: 12px;
+  color: rgba(0, 0, 0, .85);
+  line-height: 1.5715;
+  box-shadow: 17px 20px 20px rgb(94, 46, 101, .25);
+  max-width: 70%;
+  margin: 50px auto;
+  padding: 50px 0;
+  background: rgb(238, 174, 202);
+  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+
+.card form {
+  display: inline-table;
+}
+
+
+.form-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-field label {
+  font-weight: bold;
+  margin: auto 20px;
+  display: block;
+  min-width: 120px;
+}
+
+
+.card button{
+  border-radius: 40px;
+  font-size: 16px;
+  height: 40px;
+  padding: 6.4px 20px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}

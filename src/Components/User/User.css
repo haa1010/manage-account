@@ -1,0 +1,15 @@
+.user-detail {
+    padding: 50px 10px;
+}
+
+.user-detail .form-field {
+    border-bottom: solid 1px #ada8a8;
+    margin-bottom: 0;
+}
+
+.detail {
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}

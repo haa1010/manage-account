@@ -1,0 +1,28 @@
+
+.form-field input {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 20rem;
+    max-width: 100%;
+}
+
+input.invalid {
+    border-color: red;
+}
+
+div.valid {
+    display: none;
+}
+.form-field b {
+    color: red
+}
+
+
+.card select{
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    max-width: 100%;
+}

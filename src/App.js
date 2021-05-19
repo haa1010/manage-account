@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import SignUp from './Components/SignUp/SignUp';
+import User from "./Components/User/User";
+import Login from "./Components/Login/Login";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    let user = {
+        username: 'hangtt',
+        password: '1',
+        fullname: 'Tran Thi Hang',
+        address: 'Duyen Thai, Thuong Tin, Ha Noi',
+        dob: new Date(),
+        job: 'Student'
+    }
+
+    const loginHandler = (userLogin) => {
+        console.log("in app. js")
+        console.log(userLogin)
+    }
+
+    return (
+        <div className="App">
+            <Login onLogin={loginHandler}/>
+            <User userInfo={user}/>
+            <SignUp/>
+        </div>
+    );
+};
 
 export default App;
