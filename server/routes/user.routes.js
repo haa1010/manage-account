@@ -7,6 +7,10 @@ module.exports = app => {
   // Retrieve all users
   app.get("/users", users.findAll);
 
+  // Retrieve a single user with username
+  app.get("/users/login", users.login);
+  
   // Retrieve a single user with userId
   app.get("/users/:userId", users.findOne);
+
 };

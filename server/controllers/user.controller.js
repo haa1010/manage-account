@@ -1,9 +1,8 @@
 const User = require("../models/user.model.js");
-
 // Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
-    console.log("req :", req.body)
+    // console.log("req :", req.body)
     const user = req.body
     if (!user) {
         res.status(400).send({
@@ -47,18 +46,41 @@ exports.findAll = (req, res) => {
 
 // Find a single User with a UserId
 exports.findOne = (req, res) => {
-    console.log("req: ", req)
-    User.findById(req.params.UserId, (err, data) => {
+    User.findById(req.params.userId, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found User with id ${req.params.UserId}.`
+                    message: `Not found User with id ${req.params.userId}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving User with id " + req.params.UserId
+                    message: "Error retrieving User with id " + req.params.userId
                 });
             }
-        } else res.send(data);
+        } else {
+            res.send(data);
+        }
+    });
+};
+
+// Find a single User with a UserId
+exports.login = (req, res) => {
+    // console.log(req.body)
+    User.login(req.body.username, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found user with username ${req.body.username}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving user with username " + req.body.username
+                });
+            }
+        } else {
+            if (data.password === req.body.password)
+                res.send(data);
+            else res.status(404).send("Incorrect password.")
+        }
     });
 };

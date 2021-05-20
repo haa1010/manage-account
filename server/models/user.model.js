@@ -17,9 +17,8 @@ User.create = (newUser, result) => {
             result(err, null);
             return;
         }
-
-        console.log("created User: ", { id: res.id, ...newUser });
-        result(null, { id: res.id, ...newUser });
+        // console.log("created User: ", { id: res.insertId, ...newUser });
+        result(null, { id: res.insertId, ...newUser });
     });
 };
 
@@ -52,6 +51,26 @@ User.getAll = result => {
 
         // console.log("Users: ", res);
         result(null, res);
+    });
+};
+
+
+User.login = (username, result) => {
+    sql.query(`SELECT * FROM Users WHERE username = "${username}"`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            // console.log("found User: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // not found User with the username
+        result({ kind: "not_found" }, null);
     });
 };
 
