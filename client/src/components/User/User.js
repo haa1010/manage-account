@@ -1,8 +1,35 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {useParams} from 'react-router-dom'
+
 import './User.css';
 
-const User = (props) => {
-    const user = props.userInfo
+const User = () => {
+
+    const params = useParams();
+
+    const [user, setUser] = useState({
+        id: 1,
+        username: "",
+        address: "",
+        job: "",
+        dob: "",
+        fullname: ""
+    });
+
+    useEffect(() => {
+        console.log('params', params)
+        fetch(`http://localhost:8081/users/${params.userId}`)
+            .then((res) => {
+                return res.json()
+            })
+            .then(data => {
+                setUser(data)
+                console.log("user ", user)
+            })
+
+    }, [])
+
+
     return (
         <div className="card user-detail">
             <img src={process.env.PUBLIC_URL + "/user.png"} alt="" style={{maxWidth: '250px', width: '50%'}}/>
@@ -18,7 +45,7 @@ const User = (props) => {
                 </div>
                 <div className="form-field">
                     <label>Date of Birth</label>
-                    <h2>{user.dob.toDateString()}</h2>
+                    <h2>{ new Date(Date.parse(user.dob)).toLocaleDateString()}</h2>
                 </div>
                 <div className="form-field">
                     <label>Job</label>

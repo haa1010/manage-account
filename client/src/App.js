@@ -1,29 +1,38 @@
+import React from 'react'
+import {Route, Switch, Redirect} from 'react-router-dom';
+
+import SignUp from './components/SignUp/SignUp';
+import User from "./components/User/User";
+import Login from "./components/Login/Login";
+import Header from "./components/UI/Header";
+import Footer from "./components/UI/Footer";
+import NotFound from "./components/NotFound/NotFound";
+
 import './App.css';
-import SignUp from './Components/SignUp/SignUp';
-import User from "./Components/User/User";
-import Login from "./Components/Login/Login";
 
 function App() {
-    let user = {
-        username: 'hangtt',
-        password: '1',
-        fullname: 'Tran Thi Hang',
-        address: 'Duyen Thai, Thuong Tin, Ha Noi',
-        dob: new Date(),
-        job: 'Student'
-    }
-
-    const loginHandler = (userLogin) => {
-        console.log("in app. js")
-        console.log(userLogin)
-    }
-
     return (
-        <div className="App">
-            <Login onLogin={loginHandler}/>
-            <User userInfo={user}/>
-            <SignUp/>
-        </div>
+        <React.Fragment>
+            <Header/>
+            <Switch>
+                <Route path="/" exact>
+                    <Redirect to="/login"/>
+                </Route>
+                <Route path="/login">
+                    <Login/>
+                </Route>
+                <Route path="/users/:userId">
+                    <User/>
+                </Route>
+                <Route path="/signup">
+                    <SignUp/>
+                </Route>
+                <Route path='*'>
+                    <NotFound/>
+                </Route>
+            </Switch>
+            <Footer/>
+        </React.Fragment>
     );
 };
 

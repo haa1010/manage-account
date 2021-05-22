@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './NewUser.css'
+import {Link} from "react-router-dom";
 
 const NewUser = (props) => {
     const [isValid, setIsValid] = useState(true);
@@ -90,7 +91,8 @@ const NewUser = (props) => {
                         <option value="other">Other</option>
                     </select></div>
                 <div className={isValid ? 'valid' : ''}>Please fill in all required fields!</div>
-                <button type="submit">Submit</button>
+                <p>Already have an account</p> <Link to="/login">Log in</Link>
+                <button type="submit">Sign up</button>
             </form>
         </div>)
 }
