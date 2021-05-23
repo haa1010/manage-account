@@ -6,18 +6,18 @@ const NewUser = (props) => {
     const [isValid, setIsValid] = useState(true);
     const [enteredUsername, setUsername] = useState('');
     const [enteredPassword, setPassword] = useState('');
-    const [enteredJob, setJob] = useState('student');
+    const [enteredJob, setJob] = useState('Student');
     const [enteredFullname, setFullname] = useState('');
     const [enteredAddress, setAddress] = useState('');
     const [enteredDOB, setDOB] = useState('');
 
     const usernameChangeHandler = event => {
         setUsername(event.target.value)
-        setIsValid(true)
+        event.target.value.includes(' ') ? setIsValid(false) : setIsValid(true)
     }
     const passwordChangeHandler = event => {
         setPassword(event.target.value)
-        setIsValid(true)
+        event.target.value.includes(' ') ? setIsValid(false) : setIsValid(true)
     }
     const fullnameChangeHandler = event => {
         setFullname(event.target.value)
@@ -32,9 +32,10 @@ const NewUser = (props) => {
         setDOB(event.target.value)
     }
 
+
     const submitHandler = (event) => {
         event.preventDefault()
-        if (Math.min(enteredUsername.length, enteredPassword.length, enteredAddress.length, enteredJob.length, enteredDOB.length, enteredDOB.length) <= 0) {
+        if (Math.min(enteredUsername.length, enteredPassword.length, enteredAddress.length, enteredJob.length, enteredDOB.length, enteredDOB.length) <= 0 || enteredUsername.includes(' ') || enteredPassword.includes(' ')) {
             setIsValid(false)
             return;
         }
@@ -43,12 +44,12 @@ const NewUser = (props) => {
             password: enteredPassword,
             fullname: enteredFullname,
             address: enteredAddress,
-            dob: new Date(enteredDOB),
+            dob: enteredDOB,
             job: enteredJob
         }
-        props.onSignUp(newUser);
         setIsValid(true)
-        console.log(enteredUsername, enteredPassword, isValid)
+        props.onSignUp(newUser);
+
     }
 
     return (
@@ -74,9 +75,8 @@ const NewUser = (props) => {
                     <input type="text" value={enteredAddress} onChange={addressChangeHandler}
                            className={enteredAddress || isValid ? '' : 'invalid'}/></div>
                 <div className="form-field">
-
                     <label htmlFor="dob">Date of Birth <b>*</b></label>
-                    <input type="date" max={Date.now()} min={'1950-01-01'} value={enteredDOB}
+                    <input type="date" max={new Date().toLocaleString().slice(0,9)} min={'1970-01-01'} value={enteredDOB}
                            onChange={dobChangeHandler}
                            className={enteredDOB || isValid ? '' : 'invalid'}/></div>
                 <div className="form-field">
@@ -84,15 +84,14 @@ const NewUser = (props) => {
                     <label htmlFor="job">Job <b>*</b></label>
                     <select name="job" value={enteredJob} onChange={jobChangeHandler}
                             className={enteredJob || isValid ? '' : 'invalid'}>
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="engineer">Engineer</option>
-                        <option value="developer">Developer</option>
-                        <option value="other">Other</option>
+                        <option value="Student">Student</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Engineer">Engineer</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Other">Other</option>
                     </select></div>
-                <div className={isValid ? 'valid' : ''}>Please fill in all required fields!</div>
-                <p>Already have an account</p> <Link to="/login">Log in</Link>
-                <button type="submit">Sign up</button>
+                <p>Already have an account? <Link to="/login"> Log in</Link></p>
+                <button disabled={!isValid} type="submit">Sign up</button>
             </form>
         </div>)
 }

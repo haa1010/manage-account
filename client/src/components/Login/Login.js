@@ -29,11 +29,11 @@ const Login = (props) => {
     const [isValid, setIsValid] = useState(true);
     const [usernameState, dispatchUsername] = useReducer(usernameReducer, {
         value: '',
-        isValid: false,
+        isValid: true,
     });
     const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
         value: '',
-        isValid: false,
+        isValid: true,
     });
     useEffect(() => {
         setTimeout(() => {
@@ -72,7 +72,7 @@ const Login = (props) => {
                     method: 'POST',
                     body: JSON.stringify(userLogin)
                 })
-            console.log(response)
+
             if (!response.ok) {
                 const errMessage = await response.text()
 
@@ -80,7 +80,7 @@ const Login = (props) => {
                 throw Error(response.statusText)
             }
             const data = await response.json()
-            console.log(data)
+            localStorage.setItem('isLogin', '1');
             history.push(`users/${data.id}`)
 
         } catch (e) {
@@ -110,7 +110,6 @@ const Login = (props) => {
                     onChange={passwordChangeHandler}
                     onBlur={validatePasswordHandler}
                 />
-                {/*<div className={isValid ? 'valid' : ''}>Please fill in all required fields!</div>*/}
                 <p>Don't have an account yet? <Link to="/signup"> Sign up</Link></p>
                 <button type="submit" disabled={!isValid}>Log in</button>
             </form>

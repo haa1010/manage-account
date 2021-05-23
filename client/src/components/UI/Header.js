@@ -1,6 +1,10 @@
+import classes from './Header.module.css';
 const Header = () => {
     return (
-        <div>This is Header</div>
+        <header className={"header-footer-common " + classes['main-header']}>
+
+            <h1>Your Account</h1>
+        </header>
     )
 }
 

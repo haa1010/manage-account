@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useHistory, useParams, Link} from 'react-router-dom'
 
 import './User.css';
 
 const User = () => {
 
     const params = useParams();
+    const history = useHistory();
 
     const [user, setUser] = useState({
         id: 1,
@@ -29,31 +30,44 @@ const User = () => {
 
     }, [])
 
+    const logOutHandler = () => {
+        localStorage.removeItem('isLogin');
+        history.push('/login')
+    }
 
-    return (
-        <div className="card user-detail">
+    let content = <div className='card'>Please <Link to='/login'>log in </Link> to see this page</div>;
+
+    if (localStorage.getItem('isLogin') !== null) {
+        content = <div className="card user-detail">
             <img src={process.env.PUBLIC_URL + "/user.png"} alt="" style={{maxWidth: '250px', width: '50%'}}/>
             <h1>{user.username}</h1>
             <div className="detail">
                 <div className="form-field">
                     <label>Full name</label>
-                    <h2>{user.fullname}</h2>
+                    <h3>{user.fullname}</h3>
                 </div>
                 <div className="form-field">
                     <label>Address</label>
-                    <h2>{user.address}</h2>
+                    <h3>{user.address}</h3>
                 </div>
                 <div className="form-field">
                     <label>Date of Birth</label>
-                    <h2>{ new Date(Date.parse(user.dob)).toLocaleDateString()}</h2>
+                    <h3>{new Date(Date.parse(user.dob)).toLocaleDateString()}</h3>
                 </div>
                 <div className="form-field">
                     <label>Job</label>
-                    <h2>{user.job}</h2>
+                    <h3>{user.job}</h3>
                 </div>
             </div>
-            <button>Log out</button>
+            <button onClick={logOutHandler}>Log out</button>
         </div>
+
+    }
+
+    return (
+        <React.Fragment>
+            {content}
+        </React.Fragment>
     )
 };
 

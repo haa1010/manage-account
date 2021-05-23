@@ -1,0 +1,11 @@
+
+.main-footer {
+    bottom: 0;
+    left: 0;
+    height: 50px;
+}
+
+.main-footer small {
+    color: white;
+    text-align: right;
+}

@@ -44,7 +44,7 @@
   line-height: 1.5715;
   box-shadow: 17px 20px 20px rgb(94, 46, 101, .25);
   max-width: 70%;
-  margin: 50px auto;
+  margin: 150px auto;
   padding: 50px 0;
   background: rgb(238, 174, 202);
   background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
@@ -81,4 +81,34 @@
   text-align: center;
   font-weight: bold;
   cursor: pointer;
+}
+
+.card a {
+  color: #2127d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.container{
+  min-height: calc(100vh - 200px);
+}
+
+.header-footer-common{
+  width: calc(100% - 4rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #741188;
+  padding: 0 2rem;
+}
+
+@media screen and (max-width: 756px) {
+  .card{
+    width: 90%;
+  }
+
+  .form-field input, .card select{
+    width: calc( 100% - 40px);
+    margin: auto 20px;
+  }
 }

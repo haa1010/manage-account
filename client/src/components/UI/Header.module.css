@@ -1,0 +1,11 @@
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5rem;
+}
+
+.main-header h1 {
+    color: white;
+}

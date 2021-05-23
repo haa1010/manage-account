@@ -12,5 +12,4 @@ module.exports = app => {
   
   // Retrieve a single user with userId
   app.get("/users/:userId", users.findOne);
-
 };

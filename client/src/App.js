@@ -14,23 +14,25 @@ function App() {
     return (
         <React.Fragment>
             <Header/>
-            <Switch>
-                <Route path="/" exact>
-                    <Redirect to="/login"/>
-                </Route>
-                <Route path="/login">
-                    <Login/>
-                </Route>
-                <Route path="/users/:userId">
-                    <User/>
-                </Route>
-                <Route path="/signup">
-                    <SignUp/>
-                </Route>
-                <Route path='*'>
-                    <NotFound/>
-                </Route>
-            </Switch>
+            <div className="container">
+                <Switch>
+                    <Route path="/" exact>
+                        <Redirect to="/login"/>
+                    </Route>
+                    <Route path="/login">
+                        <Login/>
+                    </Route>
+                    <Route path="/users/:userId">
+                        <User/>
+                    </Route>
+                    <Route path="/signup">
+                        <SignUp/>
+                    </Route>
+                    <Route path='*'>
+                        <NotFound/>
+                    </Route>
+                </Switch>
+            </div>
             <Footer/>
         </React.Fragment>
     );
