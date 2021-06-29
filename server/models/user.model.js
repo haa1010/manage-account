@@ -1,7 +1,7 @@
 const sql = require("../db/db.connection.js");
 
 // constructor
-const User = function (user) {
+const User = function(user) {
     this.username = user.username;
     this.fullname = user.fullname;
     this.password = user.password;
@@ -31,7 +31,6 @@ User.findById = (userId, result) => {
         }
 
         if (res.length) {
-            console.log("found User: ", res[0]);
             result(null, res[0]);
             return;
         }

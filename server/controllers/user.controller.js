@@ -1,8 +1,12 @@
 const User = require("../models/user.model.js");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+// const myPlaintextPassword = 's0/\/\P4$$w0rD';
+// const someOtherPlaintextPassword = 'not_bacon';
+
 // Create and Save a new User
 exports.create = (req, res) => {
     // Validate request
-    // console.log("req :", req.body)
     const user = req.body
     if (!user) {
         res.status(400).send({
@@ -10,26 +14,16 @@ exports.create = (req, res) => {
         });
         return;
     }
-
-    // Create a User
-    const newUser = new User({
-        username: user.username,
-        fullname: user.fullname,
-        password: user.password,
-        address: user.address,
-        dob: user.dob,
-        job: user.job
-    });
-
-    // Save User in the database
-    User.create(newUser, (err, data) => {
-        if (err)
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the User."
-            });
-        else res.send(data);
-    });
+    bcrypt.hash(user.password, saltRounds, function(err, hash) {
+        user.password = hash
+        User.create(user, (err, data) => {
+            if (err)
+                res.status(500).send({
+                    message: err.message || "Some error occurred while creating the User."
+                });
+            else res.send(data);
+        });
+    })
 };
 
 // Retrieve all Users from the database.
@@ -37,8 +31,7 @@ exports.findAll = (req, res) => {
     User.getAll((err, data) => {
         if (err)
             res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Users."
+                message: err.message || "Some error occurred while retrieving Users."
             });
         else res.send(data);
     });
@@ -78,9 +71,11 @@ exports.login = (req, res) => {
                 });
             }
         } else {
-            if (data.password === req.body.password)
-                res.send(data);
-            else res.status(404).send("Incorrect password.")
+            bcrypt.compare(req.body.password, data.password, function(err, result) {
+                if (result)
+                    res.send(data);
+                else res.status(404).send("Incorrect password.")
+            });
         }
     });
 };
